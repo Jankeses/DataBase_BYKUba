@@ -1,8 +1,5 @@
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     /*
@@ -20,17 +17,32 @@ public class Main {
     public static void main(String[] args) {
         Connection connection = new SQLConnection().getConnection();
         CRUDStatementSQL crudStatementSQL = new CRUDStatementSQL(connection);
+//(LastName, FirstName, Address, City, Salary, Age, StartJobDate, Benefit
+        String tableName = "Employees";
 
-//        String tableName = "Employees";
+        List<String> columnNames = new ArrayList<>();
+        columnNames.add("LastName");
+        columnNames.add("FirstName");
+        columnNames.add("Address");
+        columnNames.add("City");
+        columnNames.add("Salary");
+        columnNames.add("Age");
+        columnNames.add("StartJobDate");
+        columnNames.add("Benefit");
 //
-//        List<String> columnNames = new ArrayList<>();
-//        columnNames.add("FirstName");
-//        columnNames.add("LastName");
-//
-//        Map<String, String> updateValues = new HashMap<>();
+//        Map<String, String> updateValues = new LinkedHashMap<>();
 //        updateValues.put("LastName", "Jasiek");
-//        updateValues.put("Age", "15");
-//
+//        updateValues.put("FirstName", "Nowakowskiwe");
+//        updateValues.put("Address", "Nowa 15");
+//        updateValues.put("City", "Warszawa");
+//        updateValues.put("Salary", "8000");
+//        updateValues.put("Age", "55");
+//        updateValues.put("StartJobDate", "20180908");
+//        updateValues.put("Benefit", "1");
+
 //        crudStatementSQL.updateSQLbyJDBC(updateValues, tableName, "where id = 2");
+        //crudStatementSQL.addSQLbyJDBC(updateValues, tableName);
+        //crudStatementSQL.selectSQLbyJDBC(columnNames,tableName);
+        crudStatementSQL.delSQLbyJDBC(tableName,"Salary","8000");
     }
 }

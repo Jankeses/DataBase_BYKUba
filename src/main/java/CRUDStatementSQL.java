@@ -41,8 +41,6 @@ public class CRUDStatementSQL {
             ex.printStackTrace();
         }
     }
-
-
     public Statement updateSQLbyJDBC(Map<String,String> updateQuery,String tableName, String whereCondition) {
         Statement statement= null;
         try {
@@ -70,5 +68,50 @@ public class CRUDStatementSQL {
         }
         return statement;
     }
+    public Statement addSQLbyJDBC(Map<String,String> addQuery,String tableName) {
+        Statement statement= null;
+        try {
+            statement = conn.createStatement();
+            StringBuilder sb = new StringBuilder();
+            sb.append("INSERT INTO ");
+            sb.append(tableName);
+            sb.append(" (LastName, FirstName, Address, City, Salary, Age, StartJobDate, Benefit) ");
+            sb.append(" VALUES (");
 
+            int i=0;
+            for(Map.Entry<String, String> entry : addQuery.entrySet()) {
+                if( i < addQuery.entrySet().size()-1) {
+                    sb.append("'" +entry.getValue() +"'" + ", ");
+                    i++;
+                }
+                else {
+                    sb.append("'" + entry.getValue() +"'" + " ");
+                }
+            }
+            sb.append(")");
+            System.out.println(sb);
+            statement.executeUpdate(sb.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statement;
+    }
+    public Statement delSQLbyJDBC(String tableName, String columnName ,String whereCond) {
+        Statement statement= null;
+        try {
+            statement = conn.createStatement();
+            StringBuilder sb = new StringBuilder();
+            sb.append("DELETE FROM ");
+            sb.append(tableName);
+            sb.append(" WHERE ");
+            sb.append(columnName + "=");
+            sb.append("'"+ whereCond +"'");
+
+            System.out.println(sb);
+            statement.executeUpdate(sb.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statement;
+    }
 }
